@@ -8,10 +8,7 @@ SECONDS=0
 CLANG_DIR="$PWD/clang"
 GKI_DEFCONFIG="gki_defconfig"
 DEVICE_DEFCONFIG="cancunf-gki_defconfig"
-DEVICE_FRAGMENT_DEFCONFIG="vendor/moto-mgk_64_k510-cancunf.config"
-ENTRY_LEVEL_DEFCONFIG="entry_level.config"
-MOTO_FRAGMENT_DEFCONFIG="vendor/moto-mgk_64_k510.config"
-MTK_FRAGMENT_DEFCONFIG="mgk_64_k510_defconfig"
+MTK_FRAGMENT_DEFCONFIG="mgk_64_k510.config"
 
 if [ ! -d "clang" ]; then
 	git clone https://github.com/LineageOS/android_prebuilts_clang_kernel_linux-x86_clang-r416183b clang
@@ -23,10 +20,7 @@ if [[ $1 = "-d" || $1 = "--defconfig" ]]; then
 	KCONFIG_CONFIG=arch/arm64/configs/$DEVICE_DEFCONFIG \
 		scripts/kconfig/merge_config.sh -m -r \
   		arch/arm64/configs/$GKI_DEFCONFIG \
-  		arch/arm64/configs/$ENTRY_LEVEL_DEFCONFIG \
-		arch/arm64/configs/$MTK_FRAGMENT_DEFCONFIG \
-		arch/arm64/configs/$MOTO_FRAGMENT_DEFCONFIG \
-  		arch/arm64/configs/$DEVICE_FRAGMENT_DEFCONFIG
+		arch/arm64/configs/$MTK_FRAGMENT_DEFCONFIG
 	exit
 fi
 
