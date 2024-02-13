@@ -47,7 +47,7 @@ else
 fi
 
 echo -e "\nStarting compilation...\n"
-make -j$(nproc --all) O=out ARCH=arm64 CC=clang LLVM_IAS=1 LD=$CLANG_DIR/bin/ld.lld AR=$CLANG_DIR/bin/llvm-ar NM=$CLANG_DIR/bin/llvm-nm OBJCOPY=$CLANG_DIR/bin/llvm-objcopy OBJDUMP=$CLANG_DIR/bin/llvm-objdump STRIP=$CLANG_DIR/bin/llvm-strip
+make -j$(nproc --all) O=out ARCH=arm64 CC=clang CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_COMPAT=arm-linux-gnueabi- LLVM=1 LLVM_IAS=1
 
 kernel="out/arch/arm64/boot/Image.gz"
 
@@ -57,7 +57,9 @@ if [ -f "$kernel" ]; then
 	git clone https://github.com/sarthakroy2002/AnyKernel3 -b cancunf AnyKernel --depth=1
 	cp out/arch/arm64/boot/Image.gz AnyKernel
 	cd AnyKernel
+	wget https://gist.githubusercontent.com/sarthakroy2002/feb724b4d07781c85be6df0595739806/raw/536e2433eddec9875bc517f59e21e85c6f1fe6a8/upload.sh
 	zip -r9 neOliT-KERNEL-cancunf-TEST.zip *
+	bash upload.sh neOliT-KERNEL-cancunf-TEST.zip
 else
 	echo -e "\nCompilation failed!"
 	exit 1
